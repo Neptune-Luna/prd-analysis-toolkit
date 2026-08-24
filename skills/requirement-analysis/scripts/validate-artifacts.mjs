@@ -34,7 +34,7 @@ const checks = {
   },
   aggregate: {
     file: "final-report.md",
-    required: ["# ", "## "],
+    required: ["# ", "## ", "| # |"],
     regex: [/\u9879\u76EE\u6982[\u89C8\u8FF0]/u, /\u9700\u6C42\u8403\u53D6/u, /\u5206\u6790\u4E0E\u8BC4\u4EF7/u, /\u6F84\u6E05/u, /\u8BC4\u5BA1/u],
   },
 };
@@ -59,6 +59,10 @@ const placeholderPatterns = [
   /\[\u9875\u9762\u540D\]/u,
 ];
 const markerPatterns = [/\*\*\*\s+(Add|Update|Delete)\s+File:/, /\*\*\*\s+(Begin|End)\s+Patch/];
+const aggregateSummaryOnlyPatterns = [
+  /完整(?:问句|清单)(?:和来源)?见\s*[`[]?_clarifications\.md/u,
+  /澄清结论[\s\S]{0,800}重点包括/u,
+];
 
 function fail(message) {
   console.error(`Artifact validation FAILED: ${message}`);
@@ -84,6 +88,11 @@ function validate(check, optional = false) {
   }
   for (const pattern of markerPatterns) {
     if (pattern.test(content)) fail(`${check.file} contains stray patch marker: ${pattern}`);
+  }
+  if (check.file === "final-report.md") {
+    for (const pattern of aggregateSummaryOnlyPatterns) {
+      if (pattern.test(content)) fail(`${check.file} summarizes clarification items instead of embedding details: ${pattern}`);
+    }
   }
 }
 

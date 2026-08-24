@@ -34,13 +34,16 @@ description: Analyze a new PRD, Feishu/Meegle requirement link, local requiremen
 5. CLARIFY
    - 读取 [需求澄清阶段](references/stages/clarifier-agent.md)，输出 `_clarifications.md`。
    - 问题按红/黄/绿优先级分组，并覆盖异常分支、边界值、状态机细节、隐性依赖；每条必须包含来源、影响范围和可直接发送的完整问句。
+   - 每个澄清点必须独立编号；不得把多个可分别回答的问题压缩成“规则待明确”“异常待补充”等摘要。
    - 执行 `--stage clarify` 校验。
 6. REVIEW
    - 读取 [需求评审阶段](references/stages/reviewer-agent.md)，输出 `_review.md`。
    - 给出结论、产品问题、开发问题、风险、回归范围、可量化验收标准和会议发言稿。
    - 执行 `--stage review` 校验。
 7. AGGREGATE
-   - 生成 `final-report.md`，至少包含项目概览、需求萃取、分析评价、澄清清单、评审意见和来源追溯。
+   - 生成 `final-report.md`，至少包含项目概览、需求萃取、分析评价、澄清结论、评审意见和来源追溯。
+   - “澄清结论”必须完整内嵌 `_clarifications.md` 中的全部具体澄清项，逐条列出编号、来源/场景、需要确认的完整问题和影响；可增加分类统计，但统计、主题摘要或“详见 `_clarifications.md`”不能替代明细。
+   - 最终报告中的澄清项数量、编号和优先级必须与 `_clarifications.md` 一致；即使报告会单独发布，也必须能脱离中间产物直接用于澄清会议。
    - 执行 `--stage aggregate` 或 `--stage all`；若 PARSE 合理跳过，校验器不会强制要求 `_parsed-content.md`。
    - 校验通过后，把最终报告发布到易查找目录：
      `node "$SKILL_DIR/scripts/publish-report.mjs" <RUN_DIR> "<PROJECT_NAME>" "<PROJECT_ROOT>"`。
@@ -67,3 +70,4 @@ description: Analyze a new PRD, Feishu/Meegle requirement link, local requiremen
 - 每个主流程至少检查失败分支、取消/返回、重复提交、权限差异、空态、加载态和并发影响。
 - 模糊词（如“及时”“大量”“自动”）必须转换为待确认的量化问题。
 - 最终报告不得残留模板占位符、补丁标记或未经验证的断言。
+- 最终报告不得用“重点包括”“待明确”“完整清单见其他文件”等概括性文字代替具体澄清问题。
