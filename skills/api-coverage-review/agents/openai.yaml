@@ -1,0 +1,5 @@
+interface:
+  display_name: "需求-技术-用例一致性评审"
+  short_description: "对照需求、接口技术方案和测试用例，识别覆盖缺口与冲突"
+  default_prompt: "使用 $api-coverage-review 对比需求文档、技术/API 文档和测试用例，生成双向追溯矩阵，并分别判断设计覆盖与运行态验证状态。"
+

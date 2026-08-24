@@ -1,0 +1,6 @@
+运营平台
+测试环境：http://192.168.2.74/ai-report/operation-log
+
+app
+  Android：https://www.xcxwo.com/neptunerobotics
+  iOS：https://www.xcxwo.com/neptunerobotics-ios

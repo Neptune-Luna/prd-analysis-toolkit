@@ -1,0 +1,7 @@
+interface:
+  display_name: "需求分析"
+  short_description: "萃取、澄清和评审 PRD，并按需生成测试用例"
+  default_prompt: "Use $requirement-analysis to analyze this requirement, clarify gaps, and prepare a review report."
+policy:
+  allow_implicit_invocation: true
+

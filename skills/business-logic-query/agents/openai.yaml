@@ -1,0 +1,7 @@
+interface:
+  display_name: "业务逻辑询问"
+  short_description: "查询代码与页面交互规则并给出可追溯答案"
+  default_prompt: "Use $business-logic-query to answer this business-rule question from the authoritative Feishu knowledge bases."
+policy:
+  allow_implicit_invocation: true
+

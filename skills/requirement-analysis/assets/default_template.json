@@ -1,0 +1,11 @@
+[
+  {"field": "name", "header": "用例名称", "width": 40},
+  {"field": "directory", "header": "所属目录", "width": 36},
+  {"field": "steps", "header": "执行步骤", "width": 44},
+  {"field": "type", "header": "用例类型", "width": 22},
+  {"field": "expected", "header": "预期结果", "width": 40},
+  {"field": "precondition", "header": "前置条件", "width": 26},
+  {"field": "requirement_id", "header": "关联需求", "width": 16},
+  {"field": "priority", "header": "用例分级", "width": 26},
+  {"field": "owner", "header": "负责人", "width": 12}
+]

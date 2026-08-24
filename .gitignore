@@ -1,0 +1,27 @@
+# 本地凭证与用户配置
+settings.json
+config.json
+.tools/
+
+# Codex/Claude 运行时数据
+.cache/
+.tmp/
+.uv-cache/
+cache/
+backups/
+file-history/
+ide/
+plugins/
+projects/
+session-env/
+sessions/
+shell-snapshots/
+telemetry/
+.last-cleanup
+
+# 临时与生成缓存
+*.log
+*.tmp
+Thumbs.db
+.DS_Store
+
