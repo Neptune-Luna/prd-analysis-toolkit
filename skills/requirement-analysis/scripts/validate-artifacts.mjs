@@ -35,7 +35,19 @@ const checks = {
   aggregate: {
     file: "final-report.md",
     required: ["# ", "## ", "| # |"],
-    regex: [/\u9879\u76EE\u6982[\u89C8\u8FF0]/u, /\u9700\u6C42\u8403\u53D6/u, /\u5206\u6790\u4E0E\u8BC4\u4EF7/u, /\u6F84\u6E05/u, /\u8BC4\u5BA1/u],
+    regex: [
+      /\u9879\u76EE\u6982[\u89C8\u8FF0]/u,
+      /\u9700\u6C42\u8403\u53D6/u,
+      /\u5206\u6790\u4E0E\u8BC4\u4EF7/u,
+      /\u5B8C\u6574\u6027/u,
+      /\u4E00\u81F4\u6027/u,
+      /\u5408\u7406\u6027/u,
+      /\u91CF\u5316\u6027/u,
+      /\u903B\u8F91\u95ED\u73AF/u,
+      /\u6F84\u6E05/u,
+      /\u8BC4\u5BA1/u,
+      /\u6765\u6E90\u8FFD\u6EAF/u,
+    ],
   },
 };
 

@@ -19,7 +19,7 @@ description: Analyze a new PRD, Feishu/Meegle requirement link, local requiremen
    - 识别输入：本地文档、飞书/Meegle 链接、网页原型或其组合。
    - 将用户当前工作/项目目录记为 `PROJECT_ROOT`，从 Meegle 工作项名称、文档标题或用户提供的项目名确定 `PROJECT_NAME`。
    - 在 `PROJECT_ROOT` 创建 `artifacts/<YYYYMMDD-HHmm>-<项目slug>/`；用户指定其他目录或文件名时服从用户要求。
-   - 记录来源 URL、文件路径、抓取时间、访问限制和既有测试资产。
+   - 记录来源 URL、文件路径、版本/修订号、抓取时间、访问限制和既有测试资产；多来源时先确定版本优先级，不默认“最新抓到的内容”一定是有效基线。
 2. PARSE
    - 仅本地文档需要单独解析，读取 [文档解析阶段](references/stages/doc-reader-agent.md)，输出 `_parsed-content.md`。
    - 纯链接可跳过，但在后续产物中明确写明跳过原因。
@@ -27,6 +27,7 @@ description: Analyze a new PRD, Feishu/Meegle requirement link, local requiremen
    - 读取 [需求萃取阶段](references/stages/extractor-agent.md) 以及 `references/knowledge/` 下五份检查库。
    - 飞书资料按 [飞书 CLI 访问](references/feishu-cli.md) 获取；Meegle 按 [Meegle 只读访问](references/meegle-access.md) 获取；交互原型优先使用可用浏览器能力，无法浏览时明确局限。
    - 输出 `_extraction.md`，覆盖页面/模块、字段与规则、角色权限、状态流转、异常与边界、依赖、可测试验收点。
+   - 将原文明确陈述的内容、跨来源一致结论、冲突/未确认规则和测试经验推导分开记录；不得把技术方案、评论、旧用例中的冲突内容合并成一个伪结论。
    - 执行阶段校验：`node "$SKILL_DIR/scripts/validate-artifacts.mjs" <RUN_DIR> --stage extract`。
 4. 用户确认门
    - 向用户展示萃取摘要、覆盖范围、证据缺口和未探索项。
@@ -39,8 +40,10 @@ description: Analyze a new PRD, Feishu/Meegle requirement link, local requiremen
 6. REVIEW
    - 读取 [需求评审阶段](references/stages/reviewer-agent.md)，输出 `_review.md`。
    - 给出结论、产品问题、开发问题、风险、回归范围、可量化验收标准和会议发言稿。
+   - 变更需求存在历史用例、接口或测试资产时，必须给出逐类处置结论：保留、修改、新增、降级为建议或废弃，并说明触发条件；不得笼统写“全部回归”。
    - 执行 `--stage review` 校验。
 7. AGGREGATE
+   - 先读取 [最终报告结构与写作规范](references/report-structure.md)，按输入证据裁剪章节，但不得省略其中标记为必需的质量维度。
    - 生成 `final-report.md`，至少包含项目概览、需求萃取、分析评价、澄清结论、评审意见和来源追溯。
    - “澄清结论”必须完整内嵌 `_clarifications.md` 中的全部具体澄清项，逐条列出编号、来源/场景、需要确认的完整问题和影响；可增加分类统计，但统计、主题摘要或“详见 `_clarifications.md`”不能替代明细。
    - 最终报告中的澄清项数量、编号和优先级必须与 `_clarifications.md` 一致；即使报告会单独发布，也必须能脱离中间产物直接用于澄清会议。
@@ -71,3 +74,6 @@ description: Analyze a new PRD, Feishu/Meegle requirement link, local requiremen
 - 模糊词（如“及时”“大量”“自动”）必须转换为待确认的量化问题。
 - 最终报告不得残留模板占位符、补丁标记或未经验证的断言。
 - 最终报告不得用“重点包括”“待明确”“完整清单见其他文件”等概括性文字代替具体澄清问题。
+- 项目概览必须让读者看出需求背景、交付面、当前状态、分析范围和证据基线；缺失项明确写“未提供”，不得静默省略。
+- 分析评价必须分别覆盖完整性、一致性、合理性、量化性和逻辑闭环；没有发现问题时也要给出检查依据，而不是只写“无问题”。
+- 原始事实、跨来源冲突、测试推导和建议阈值必须使用可辨别的标签或章节隔离；经验建议不得写成验收标准。
