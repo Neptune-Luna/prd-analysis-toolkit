@@ -1,0 +1,4 @@
+interface:
+  display_name: "上线内容说明"
+  short_description: "从 Neptune 全部 GitHub 仓库整理业务功能变化，生成带目录和实拍图的发版说明"
+  default_prompt: "使用 $neptune-release-notes，按本次上线日期，从所有仓库整理自上次发布以来的功能改动并生成版本更新内容说明。"
