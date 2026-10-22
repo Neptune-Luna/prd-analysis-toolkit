@@ -1,0 +1,4 @@
+interface:
+  display_name: "生成飞书测试报告"
+  short_description: "按需求和缺陷生成简洁测试报告，包含影响范围及测试环境页面实拍"
+  default_prompt: "使用 $generate-feishu-test-report 为这个飞书需求生成或更新测试报告。"
