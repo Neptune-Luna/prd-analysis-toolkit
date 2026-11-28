@@ -42,6 +42,13 @@ lark-cli skills read lark-doc/references/lark-doc-update.md
 - 创建前查既有报告；创建结果不明先检查是否已创建，不重复创建。
 - 写后fetch核对内容、统计及图片资源，检查partial_success和warning。
 
+## 回填链接
+
+1. 用 `meegle workflow get-node` 读取对应需求的工作流，在实际测试验收节点（例如「测试环境验收」或「室内/测试环境测试」）定位「测试报告」链接字段，记录节点 key、字段 key 和现值。
+2. 知识库报告使用 Wiki 节点链接。字段已指向同一报告时跳过写入。
+3. 节点表单引用需求级字段时，使用 `meegle workitem meta-fields` 核实字段，再用 `meegle workitem update --params` 单独更新该字段。已验证的字段参数形状为 `"fields":[{"field_key":"<字段 key>","field_value":"<报告 URL>"}]`，同一参数对象还需传入 `project_key` 和 `work_item_id`。真正的节点级字段用对应的节点更新操作。只更新链接字段。
+4. 再用 `meegle workflow get-node` 回读同一节点的「测试报告」字段，核对链接指向本需求的最终报告。无法定位、写入或核实时，在交付回复中指出具体需求和阻塞原因。
+
 ## 实拍
 
 本机既有UI框架曾位于D:/git test/ui-autotest，其配置含测试环境URL和账号。其他机器定位实际项目，不假定路径存在。不打印accounts.json；仅在内存加载凭证用于对应环境正常登录。
